@@ -6,15 +6,19 @@ const billRoute=require("./routes/BillingRoute");
 const calcroute=require("./routes/CalcRoute");
 const inventory=require("./models/Inventorymodel");
 
+const Route = require("./routes/Route");
+
 const app=express();
 
 app.use(express.json());
 app.use(cors())
 app.use(express.urlencoded({extended:true}));
 
-app.use("/inventory",inventoryRoute);
-app.use("/bill",billRoute);
-app.use("/profit",calcroute);
+app.use("/",Route);
+
+// app.use("/inventory",inventoryRoute);
+// app.use("/bill",billRoute);
+// app.use("/profit",calcroute);
 app.get('/api/last-updated', async (req, res) => {
     try {
       const lastUpdated = await inventory.findOne().sort({ updatedAt: -1 }).select('updatedAt');
